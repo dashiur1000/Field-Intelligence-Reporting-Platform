@@ -20,7 +20,6 @@ namespace concumer.Data
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // מומלץ לוודא שהברירת מחדל היא kafka:9092 כדי למנוע חיפוש לוקאלי בתוך הקונטיינר
             var bootstrapServers = Environment.GetEnvironmentVariable("KAFKA_BOOTSTRAP_SERVERS") ?? "kafka:9092";
 
             var config = new ConsumerConfig
