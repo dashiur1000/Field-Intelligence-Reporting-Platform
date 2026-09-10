@@ -15,13 +15,13 @@ namespace aspAPI.Controllers
         }
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Report>>> SearchInMessage([FromQuery] string? text,
-                    string? theater,
-                    string? sector,
-                    string? location,
-                    List<string>? priorities,
-                    string? reportType,
-                    DateTime? from,
-                    DateTime? to)
+                    [FromQuery] string? theater,
+                    [FromQuery] string? sector,
+                    [FromQuery] string? location,
+                    [FromQuery] List<string>? priorities,
+                    [FromQuery] string? reportType,
+                    [FromQuery] DateTime? from,
+                    [FromQuery] DateTime? to)
         {
             var result = await _reportRepo.searchAsync(text, theater, sector, location, priorities, reportType, from, to);
             return Ok(result);

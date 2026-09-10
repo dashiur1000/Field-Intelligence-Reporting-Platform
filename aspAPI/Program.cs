@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9200"))
+var elasticUrl = builder.Configuration["ElasticsearchSettings:Url"] ?? "http://localhost:9200";
+
+var settings = new ElasticsearchClientSettings(new Uri(elasticUrl))
     .DefaultMappingFor<Report>(m => m.IndexName("field-reports-index"));
 
 var client = new ElasticsearchClient(settings);
-
 builder.Services.AddSingleton(client);
 
 builder.Services.AddControllers();
@@ -20,8 +21,11 @@ builder.Services.AddScoped<IReportRepo, ReportRepo>();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

@@ -29,7 +29,7 @@ namespace aspAPI.Repositories
             DateTime? to)
         {
             var response = await _elasticsearchClient.SearchAsync<Report>(s => s
-                .Indices(IndicesName)
+                .Indices("field-reports-index")
                 .Query(q => q
                     .Bool(b =>
                     {
@@ -88,6 +88,7 @@ namespace aspAPI.Repositories
 
             if (!response.IsValidResponse)
             {
+                Console.WriteLine($"ES Error: {response.DebugInformation}");
                 return new List<Report>();
             }
 
@@ -96,7 +97,7 @@ namespace aspAPI.Repositories
         public async Task<List<Report>> GetBysubjectIdAsync(string id)
         {
             var response = await _elasticsearchClient.SearchAsync<Report>(s => s
-                .Indices(IndicesName)
+                .Indices("field-reports-index")
                 .Query(q => q
                     .Term(m => m
                         .Field("subjectId.keyword")
@@ -120,7 +121,7 @@ namespace aspAPI.Repositories
             DateTime? to)
         {
             var response = await _elasticsearchClient.SearchAsync<Report>(s => s
-                .Indices(IndicesName)
+                .Indices("field-reports-index")
                 .Query(q => q
                     .Bool(b =>
                     {
@@ -164,6 +165,7 @@ namespace aspAPI.Repositories
 
             if (!response.IsValidResponse)
             {
+                Console.WriteLine($"ES Error: {response.DebugInformation}");
                 return new List<Report>();
             }
 
@@ -172,7 +174,7 @@ namespace aspAPI.Repositories
         public async Task<ReportsSummaryDto> GetReportsSummaryAsync()
         {
             var response = await _elasticsearchClient.SearchAsync<Report>(s => s
-                .Indices(IndicesName)
+                .Indices("field-reports-index")
                 .Size(0)
                 .Aggregations(a =>
                 {
@@ -184,6 +186,7 @@ namespace aspAPI.Repositories
 
             if (!response.IsValidResponse)
             {
+                Console.WriteLine($"ES Error: {response.DebugInformation}");
                 return new ReportsSummaryDto();
             }
 
