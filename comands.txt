@@ -1,0 +1,1 @@
+PUT /field-reports-index
