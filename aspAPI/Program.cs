@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 
 var elasticUrl = builder.Configuration["ElasticsearchSettings:Url"] ?? "http://localhost:9200";
 
@@ -17,10 +19,7 @@ var settings = new ElasticsearchClientSettings(new Uri(elasticUrl))
 var client = new ElasticsearchClient(settings);
 builder.Services.AddSingleton(client);
 
-builder.Services.AddControllers();
 builder.Services.AddScoped<IReportRepo, ReportRepo>();
-
-builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
