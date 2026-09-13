@@ -1,6 +1,7 @@
 using aspAPI.Models;
 using aspAPI.Repositories;
 using Elastic.Clients.Elasticsearch;
+using aspAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,11 @@ builder.Services.AddSingleton(client);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IReportRepo, ReportRepo>();
 
+var builder = WebApplication.CreateBuilder(args);
+
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

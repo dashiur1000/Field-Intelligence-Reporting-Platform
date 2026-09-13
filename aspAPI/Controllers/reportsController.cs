@@ -14,7 +14,8 @@ namespace aspAPI.Controllers
             _reportRepo = reportRepo;
         }
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Report>>> SearchInMessage([FromQuery] string? text,
+        public async Task<ActionResult<IEnumerable<Report>>> SearchInMessage(
+                    [FromQuery] string? text,
                     [FromQuery] string? theater,
                     [FromQuery] string? sector,
                     [FromQuery] string? location,
