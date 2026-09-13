@@ -83,6 +83,23 @@ services:
       - kafka
       - es
 
+
+  api:
+    build:
+      context: ./aspAPI
+      dockerfile: Dockerfile
+    container_name: csharp-api
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticsearchSettings__Url=http://es:9200
+    ports:
+      - "5268:8080"
+    networks:
+      - es-net
+    depends_on:
+      - es
+
 networks:
   es-net:
     driver: bridge
