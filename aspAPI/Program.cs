@@ -20,7 +20,7 @@ builder.Services.AddSingleton(client);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IReportRepo, ReportRepo>();
 
-var builder = WebApplication.CreateBuilder(args);
+builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
