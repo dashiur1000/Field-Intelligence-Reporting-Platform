@@ -11,3 +11,4 @@ http://localhost:5601/app/discover
 ```
 http://localhost:5601/app/dashboards
 ```
+או לחילופין ייבאו את export.ndjson לתוך בסיס הנתונים. 
